@@ -5,6 +5,12 @@ direction = [
     "back"
 ]
 
+opplist = {
+    "N": "S",
+    "S": "N",
+    "E": "W",
+    "W": "E"
+}
 class Game:
     curr_roomid = 0
     rooms = []
@@ -20,9 +26,27 @@ class Game:
                 roomlist = room.split("/")
                 roomdesc = roomlist[0]
                 roomfloor = int(roomlist[1])
-                roomconnections = [(x.split(":")[0],x.split(":")[1]) for x in roomlist[2].split(",")]
-                roomitems = self.parseints(roomlist[3].split(","))
+                roomconnections = [[x.split(":")[0],int(x.split(":")[1])] for x in roomlist[2].split(",")]
+                roomitems = roomlist[3].split(",")
                 self.rooms.append((roomdesc, roomfloor, roomconnections, roomitems))
+            roomid = 1
+            for room in self.rooms:
+                connectionpos = 0
+                # For connection in the rooms connection list
+                for connection in room[2]:
+                    conname = connection[0]
+                    conid = connection[1]
+                    # If it is set to autoinfer
+                    if conname == '':
+                        # find opposite room and loop the connections
+                        conopposite = self.rooms[conid - 1][2]
+                        for oppcon in conopposite:
+                            # If the connection is to the current room set the room's autoinfer to the opposite of that room's connection
+                            if roomid == oppcon[1]:
+                                self.rooms[roomid - 1][2][connectionpos][0] = opplist[oppcon[0]]
+                    connectionpos += 1
+                roomid += 1
+
     def run(self):
         self.load_rooms()
         print(self.rooms)

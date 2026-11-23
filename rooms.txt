@@ -1,2 +1,2 @@
-The description of the room./0/N:2,E:3,S:4/
+The description of the room./0/N:2,E:3,S:4/brown mug,cheese grater,carrot cake
 Another room./0/:1/
