@@ -1,0 +1,5 @@
+# DESCRIPTION/FLOOR/NORTH/EAST/SOUTH/WEST/ITEMS
+The description of the room./0/2/3/4//
+A room that is connected/0///1//
+A room that is one way/0/////
+A room with an item/0//1////1
