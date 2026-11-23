@@ -1,3 +1,10 @@
+direction = [
+    "left",
+    "straight",
+    "right",
+    "back"
+]
+
 class Game:
     curr_roomid = 0
     rooms = []
@@ -9,11 +16,11 @@ class Game:
     def load_rooms(self):
         with open("rooms.txt", "r") as f:
             rooms = f.read().splitlines()
-            for room in rooms[1:]:
+            for room in rooms:
                 roomlist = room.split("/")
                 roomdesc = roomlist[0]
                 roomfloor = int(roomlist[1])
-                roomconnections = self.parseints(roomlist[2].split(","))
+                roomconnections = [(x.split(":")[0],x.split(":")[1]) for x in roomlist[2].split(",")]
                 roomitems = self.parseints(roomlist[3].split(","))
                 self.rooms.append((roomdesc, roomfloor, roomconnections, roomitems))
     def run(self):
